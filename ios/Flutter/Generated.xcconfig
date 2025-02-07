@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/zhangteng/Library/FlutterSdk/flutter
-FLUTTER_APPLICATION_PATH=/Users/zhangteng/AndroidStudioFlutter/flutter_camerax
+FLUTTER_APPLICATION_PATH=/Users/zhangteng/Lilei/FlutterCameraX
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_TARGET=lib/main.dart
 FLUTTER_BUILD_DIR=build

@@ -160,12 +160,6 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
     widget.cameraController.setZoomLevel(scale);
   }
 
-  void _safeSetState() {
-    if (mounted) {
-      setState(() {});
-    }
-  }
-
   void _errorCallBack(int code, String message) {
     widget.cameraCallBack?.onCameraError(code, message);
   }

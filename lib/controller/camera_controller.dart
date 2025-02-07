@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_camerax/callback/camera_callback.dart';
-import 'package:flutter_camerax/const/camera_constant.dart';
 import 'package:flutter_camerax/util/record_timer.dart';
 
 ///function:

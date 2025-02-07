@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Users/zhangteng/Library/FlutterSdk/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/zhangteng/AndroidStudioFlutter/flutter_camerax"
+export "FLUTTER_APPLICATION_PATH=/Users/zhangteng/Lilei/FlutterCameraX"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"
