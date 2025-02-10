@@ -156,7 +156,7 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
   }
 
   void _errorCallBack(int code, String message) {
-    widget.cameraCallBack?.onCameraError(code, message);
+    widget.cameraCallBack?.call(code, message);
   }
 
   @override
