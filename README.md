@@ -1,6 +1,13 @@
 一个使用简单，代码量极少的flutter相机库,
 支持拍照，录制视频，扫码，双指缩放功能,拍照加水印功能开发中
 
+首先添加依赖
+```
+  flutter_camerax:
+    git:
+      url: https://github.com/cgztzero/FlutterCameraX.git
+```
+
 1.第一步创建一个相机Controller
 ```
 final CameraXController _controller = CameraXController();
