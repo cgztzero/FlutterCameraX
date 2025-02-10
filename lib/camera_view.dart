@@ -16,7 +16,7 @@ class CameraPreviewWidget extends StatefulWidget {
   final double? width;
   final double? height;
   final CameraOption? cameraOption;
-  final ValueChanged<List<String>>? onScanSuccess;
+  final ValueChanged<List<BarcodeData>>? onScanSuccess;
   final Widget? loadingWidget;
 
   const CameraPreviewWidget({
@@ -141,7 +141,7 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
     if (inputImage == null) {
       return;
     }
-    List<String>? result = await _imageAnalyzer?.analysisImage(inputImage);
+    List<BarcodeData>? result = await _imageAnalyzer?.analysisImage(inputImage);
     if (result == null) return;
     widget.onScanSuccess?.call(result);
   }

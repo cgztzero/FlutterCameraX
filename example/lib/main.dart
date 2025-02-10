@@ -45,7 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             child: CameraPreviewWidget(
               cameraController: _controller,
-              cameraOption: CameraOption(camera: CameraType.back),
+              cameraOption: CameraOption(
+                camera: CameraType.back,
+                resolutionPresetType: ResolutionPresetType.veryHigh,
+                enableAudio: true,
+                flashType: FlashType.auto,
+              ),
               onScanSuccess: (list) {},
             ),
           ),
@@ -66,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     _controller.stopRecording();
                   } else {
                     _controller.startVideoRecording(
+                      max: 60,
                       onRecordFinish: (file) => debugPrint('video file path:${file.path}'),
                     );
                   }

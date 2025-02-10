@@ -58,7 +58,7 @@ class ImageAnalyzer {
 
   bool _isProcessImage = false;
 
-  Future<List<String>?> analysisImage(InputImage inputImage) async {
+  Future<List<BarcodeData>?> analysisImage(InputImage inputImage) async {
     final barcodes = await _barcodeScanner.processImage(inputImage);
     if (barcodes.isEmpty) {
       return null;
@@ -70,10 +70,11 @@ class ImageAnalyzer {
     _isProcessImage = true;
 
     debugPrint('array length：${barcodes.length}');
-    List<String> list = barcodes.map((barcode) {
+    List<BarcodeData> list = barcodes.map((barcode) {
       debugPrint(
           'barcode result:${barcode.displayValue} - coordinate：${barcode.boundingBox.toString()}');
-      return barcode.displayValue ?? '';
+      // return barcode.displayValue ?? '';
+      return BarcodeData(barcode.displayValue ?? '', barcode.boundingBox);
     }).toList();
     _isProcessImage = false;
     return list;
@@ -89,4 +90,11 @@ class ImageAnalyzer {
     //   stopLiveFeed();
     // }
   }
+}
+
+class BarcodeData {
+  final String value;
+  final Rect boundingBox;
+
+  BarcodeData(this.value, this.boundingBox);
 }
