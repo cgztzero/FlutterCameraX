@@ -61,12 +61,7 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
       case CameraStatus.changingCamera:
       case CameraStatus.changingFlash:
         return Center(
-          child: widget.loadingWidget ??
-              const SizedBox(
-                width: 50,
-                height: 50,
-                child: CircularProgressIndicator(),
-              ),
+          child: widget.loadingWidget ?? const SizedBox(),
         );
       case CameraStatus.normal:
         _initControllerParams();
