@@ -7,16 +7,14 @@ import 'package:flutter_camerax/const/camera_constant.dart';
 
 class CameraOption {
   final CameraType camera;
-  final ResolutionPreset resolutionPreset;
+  final ResolutionPresetType resolutionPresetType;
   final bool enableAudio;
-  final ImageFormatGroup? imageFormat;
   final FlashType flashType;
 
   CameraOption({
     this.camera = CameraType.back,
-    this.resolutionPreset = ResolutionPreset.high,
+    this.resolutionPresetType = ResolutionPresetType.high,
     this.enableAudio = false,
-    this.imageFormat,
     this.flashType = FlashType.auto,
   });
 }

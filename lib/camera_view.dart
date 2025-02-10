@@ -108,9 +108,9 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
           );
       bool isOK = await widget.cameraController.initController(
         camera,
-        widget.cameraOption?.resolutionPreset ?? ResolutionPreset.high,
+        ResolutionPresetType.toFlutterResolutionPreset(
+            widget.cameraOption?.resolutionPresetType ?? ResolutionPresetType.high),
         widget.cameraOption?.enableAudio ?? true,
-        widget.cameraOption?.imageFormat,
         FlashType.toFlutterFlashMode(widget.cameraOption?.flashType ?? FlashType.auto),
       );
       if (!isOK) {

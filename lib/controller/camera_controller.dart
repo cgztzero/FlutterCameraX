@@ -82,7 +82,6 @@ class CameraXController extends ValueNotifier<CameraStatus> with TimerCallBack {
       resultCamera,
       _controller!.resolutionPreset,
       _controller!.enableAudio,
-      _controller!.imageFormatGroup,
       _controller!.value.flashMode,
     );
     return isOK;
@@ -133,7 +132,6 @@ class CameraXController extends ValueNotifier<CameraStatus> with TimerCallBack {
     CameraDescription camera,
     ResolutionPreset resolutionPreset,
     bool enableAudio,
-    ImageFormatGroup? imageFormatGroup,
     FlashMode mode,
   ) {
     _controller = CameraController(
