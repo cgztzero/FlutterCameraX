@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   flutter_camerax:
     path: ../
+#    git:
+#      url: https://github.com/cgztzero/FlutterCameraX.git
 
 
   # The following adds the Cupertino Icons font to your application.

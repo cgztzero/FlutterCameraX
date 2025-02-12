@@ -4,6 +4,7 @@ import 'package:flutter_camerax/callback/camera_callback.dart';
 import 'package:flutter_camerax/const/camera_constant.dart';
 import 'package:flutter_camerax/controller/camera_controller.dart';
 import 'package:flutter_camerax/option/camera_option.dart';
+import 'package:flutter_camerax/option/water_mark_option.dart';
 import 'package:flutter_camerax/util/image_analyzer.dart';
 
 ///function:
@@ -18,6 +19,7 @@ class CameraPreviewWidget extends StatefulWidget {
   final CameraOption? cameraOption;
   final ValueChanged<List<BarcodeData>>? onScanSuccess;
   final Widget? loadingWidget;
+  final WatermarkOption? watermarkOption;
 
   const CameraPreviewWidget({
     super.key,
@@ -28,6 +30,7 @@ class CameraPreviewWidget extends StatefulWidget {
     this.cameraOption,
     this.onScanSuccess,
     this.loadingWidget,
+    this.watermarkOption,
   });
 
   @override
@@ -39,6 +42,8 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
   double _minAvailableZoom = 1.0;
   double _maxAvailableZoom = 1.0;
   ImageAnalyzer? _imageAnalyzer;
+  final GlobalKey _waterKey = GlobalKey();
+  final GlobalKey _previewKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +70,57 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
         );
       case CameraStatus.normal:
         _initControllerParams();
-        return GestureDetector(
-          onScaleUpdate: (detail) => _zoom(detail),
-          child: CameraPreview(widget.cameraController.getFlutterController()!),
-        );
+        return _normalWidget();
     }
+  }
+
+  Widget _normalWidget() {
+    Widget result = GestureDetector(
+      onScaleUpdate: (detail) => _zoom(detail),
+      child: CameraPreview(
+        widget.cameraController.getFlutterController()!,
+        key: _previewKey,
+      ),
+    );
+    if (widget.watermarkOption != null) {
+      result = Stack(
+        fit: StackFit.expand,
+        children: [
+          result,
+          _getWatermarkWidget(),
+        ],
+      );
+    }
+    return result;
+  }
+
+  Widget _getWatermarkWidget() {
+    WatermarkPositionData data = widget.watermarkOption!.positionData;
+    Widget realWater = RepaintBoundary(
+      key: _waterKey,
+      child: widget.watermarkOption!.watermarkWidget,
+    );
+    Widget waterWidget;
+    switch (data.position) {
+      case WatermarkPosition.topLeft:
+        waterWidget = Positioned(left: data.x, top: data.y, child: realWater);
+        break;
+      case WatermarkPosition.topRight:
+        waterWidget = Positioned(right: data.x, top: data.y, child: realWater);
+        break;
+      case WatermarkPosition.center:
+        waterWidget = Center(child: realWater);
+        break;
+      case WatermarkPosition.bottomLeft:
+        waterWidget = Positioned(left: data.x, bottom: data.y, child: realWater);
+        break;
+      case WatermarkPosition.bottomRight:
+        waterWidget = Positioned(right: data.x, bottom: data.y, child: realWater);
+        break;
+    }
+
+    widget.cameraController.setWaterWidgetKey(_previewKey,_waterKey, widget.watermarkOption!.positionData);
+    return waterWidget;
   }
 
   @override

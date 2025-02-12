@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_camerax/camera_view.dart';
 import 'package:flutter_camerax/const/camera_constant.dart';
 import 'package:flutter_camerax/controller/camera_controller.dart';
 import 'package:flutter_camerax/option/camera_option.dart';
+import 'package:flutter_camerax/option/water_mark_option.dart';
+import 'dart:ui' as ui;
 
 void main() {
   runApp(const MyApp());
@@ -51,7 +54,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 enableAudio: true,
                 flashType: FlashType.auto,
               ),
-              onScanSuccess: (list) {},
+              watermarkOption: WatermarkOption(
+                watermarkWidget: Text(
+                  'This is watermark text!!!',
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                ),
+                positionData: WatermarkPositionData(
+                  position: WatermarkPosition.topLeft,
+                  x: 100,
+                  y: 100,
+                ),
+              ),
+              onScanSuccess: (list) {
+                for (var barcode in list) {
+                  debugPrint('barcode value:${barcode.value} - box:${barcode.boundingBox}');
+                }
+              },
             ),
           ),
           Row(
@@ -76,7 +94,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   }
                 },
-              )
+              ),
+              _button(
+                text: 'water',
+                onTap: () async {
+                  final image = await _controller.takePictureWithWatermark();
+                  if (image == null) {
+                    return;
+                  }
+                  Navigator.push(context, CupertinoPageRoute(
+                    builder: (cxt) {
+                      return ImageResultPage(image: image);
+                    },
+                  ));
+                },
+              ),
             ],
           )
         ],
@@ -89,6 +121,26 @@ class _MyHomePageState extends State<MyHomePage> {
       onPressed: onTap,
       child: Center(
         child: Text(text),
+      ),
+    );
+  }
+}
+
+class ImageResultPage extends StatelessWidget {
+  final ui.Image image;
+
+  const ImageResultPage({Key? key, required this.image}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Image'),
+      ),
+      body: Center(
+        child: RawImage(
+          image: image,
+        ),
       ),
     );
   }
